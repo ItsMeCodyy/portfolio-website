@@ -1414,3 +1414,47 @@ body:not(.entered) .external-links {
   }
 
 }
+
+/* sliding nav highlight */
+.top-nav .nav-jelly {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 42px;
+  height: 38px;
+  border-radius: 100px;
+  background: #ffffff26;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform .58s cubic-bezier(.2, 1.45, .35, 1),
+    width .5s cubic-bezier(.2, 1.35, .35, 1),
+    height .45s cubic-bezier(.2, 1.35, .35, 1),
+    top .5s cubic-bezier(.2, 1.35, .35, 1),
+    opacity .2s ease;
+  will-change: transform, width;
+}
+
+.top-nav button {
+  position: relative;
+  z-index: 1;
+}
+
+.top-nav button.active,
+.top-nav button:hover,
+.top-nav button:focus-visible {
+  background: transparent;
+}
+
+.top-nav button:hover,
+.top-nav button:focus-visible {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-nav .nav-jelly {
+    transition: none;
+  }
+}
