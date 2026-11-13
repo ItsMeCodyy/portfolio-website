@@ -147,7 +147,63 @@
   });
   const sections=[document.getElementById('section-home'),document.getElementById('section-two'),document.getElementById('section-three'),document.getElementById('section-four'),document.getElementById('section-five'),document.getElementById('section-six')];
   const dots=[...document.querySelectorAll('.section-dot')];
-  const setActiveSection=index=>{
+  
+const topNav = document.getElementById('top-nav');
+const navButtons = [...topNav.querySelectorAll('button')];
+const jelly = document.getElementById('nav-jelly');
+let activeNavIndex = 0;
+let hoverNavButton = null;
+
+function moveNavJelly(button) {
+  if (!button) return;
+
+  const navBox = topNav.getBoundingClientRect();
+  const box = button.getBoundingClientRect();
+
+  jelly.style.width = box.width + 'px';
+  jelly.style.height = box.height + 'px';
+  jelly.style.top = (box.top - navBox.top) + 'px';
+  jelly.style.transform = 'translate3d(' + (box.left - navBox.left) + 'px,0,0)';
+  jelly.style.opacity = '1';
+}
+
+function syncNavJelly() {
+  moveNavJelly(hoverNavButton || navButtons[activeNavIndex]);
+}
+
+navButtons.forEach(button => {
+  button.addEventListener('pointerenter', event => {
+    if (event.pointerType === 'mouse' || event.pointerType === 'pen') {
+      hoverNavButton = button;
+      syncNavJelly();
+    }
+  });
+
+  button.addEventListener('focus', () => {
+    hoverNavButton = button;
+    syncNavJelly();
+  });
+});
+
+topNav.addEventListener('pointerleave', () => {
+  hoverNavButton = null;
+  syncNavJelly();
+});
+
+topNav.addEventListener('focusout', event => {
+  if (!topNav.contains(event.relatedTarget)) {
+    hoverNavButton = null;
+    syncNavJelly();
+  }
+});
+
+window.addEventListener('resize', syncNavJelly);
+requestAnimationFrame(syncNavJelly);
+
+const setActiveSection=index=>{
+  activeNavIndex = index;
+  navButtons.forEach((button, i) => button.classList.toggle('active', i === index));
+  if (!hoverNavButton) syncNavJelly();
     dots.forEach((dot,i)=>{
       dot.classList.toggle('active',i===index);
       if(i===index)dot.setAttribute('aria-current','true');
