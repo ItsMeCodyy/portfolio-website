@@ -1,116 +1,233 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000"><title>nylo</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><style>
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#000;color:#fff}body{font-family:Arial,Helvetica,sans-serif;overflow:hidden;cursor:none}main{height:100dvh;display:grid;place-items:center}.enter{appearance:none;border:0;background:none;color:#fff;font:400 clamp(15px,2vw,19px) Arial,Helvetica,sans-serif;letter-spacing:.035em;padding:20px 24px;cursor:none;transition:opacity .2s}.enter:hover{opacity:.7}.enter:focus-visible{outline:1px solid #fff;outline-offset:5px}
-.cursor-dot{position:fixed;left:0;top:0;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px #ffffffa6;pointer-events:none;z-index:30;transform:translate(-50%,-50%);opacity:0}.sparkle{position:fixed;left:0;top:0;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 6px #ffffffc9;pointer-events:none;z-index:29;transform:translate(-50%,-50%);animation:fade .65s ease-out forwards}@keyframes fade{to{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(0)}}
-.name{position:absolute;left:50%;top:50%;margin:0;white-space:nowrap;font-size:clamp(42px,8vw,104px);font-weight:700;letter-spacing:-.065em;line-height:1.08;transform:translate(-50%,-50%);opacity:0;pointer-events:none;text-align:center}.name.revealed{opacity:1;pointer-events:auto}.name .letter{display:inline-block;opacity:0;filter:blur(7px);transform:scale(.86);transition:opacity .2s ease,filter .35s ease,transform .35s ease}.name .letter.lit{opacity:1;filter:blur(0);transform:scale(1)}.name .letter.space{width:.24em}.name .letter.blackhole-space{width:.72em;vertical-align:middle;opacity:0;filter:blur(7px);transform:scale(.86);transition:opacity .35s ease,filter .35s ease,transform .35s ease}.name .letter.blackhole-space.lit{opacity:1;filter:blur(0);transform:scale(1)}.name-blackhole{display:block;width:.66em;height:.66em;overflow:visible;filter:drop-shadow(0 0 5px #ffffff65);animation:bh-float 6s ease-in-out infinite}@keyframes bh-float{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(8deg) translateY(-3px)}}@media(prefers-reduced-motion:reduce){.name-blackhole{animation:none}}.name-dust{position:fixed;pointer-events:none;z-index:6;width:var(--s,2px);height:var(--s,2px);border-radius:50%;background:#fff;box-shadow:0 0 7px #fff,0 0 15px #ffffff80;animation:dust-pop var(--dur,.65s) ease-out forwards}@keyframes dust-pop{0%{opacity:0;transform:translate(0,0) scale(.2)}22%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.1)}}
-.player{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));width:min(370px,calc(100% - 32px));transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:opacity .5s ease,transform .5s ease;z-index:10}.player.visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
-.player-shell{position:relative;isolation:isolate;overflow:hidden;border:1px solid #ffffff50;border-radius:24px;background:linear-gradient(135deg,#ffffff20,#ffffff07 45%,#ffffff16);backdrop-filter:blur(13px) saturate(180%);-webkit-backdrop-filter:blur(13px) saturate(180%);box-shadow:0 10px 38px #0009,inset 0 1px #ffffff6b,inset 0 -1px #ffffff1a;padding:11px 13px}.player-shell:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 18% 0%,#ffffff33,transparent 52%),radial-gradient(ellipse at 93% 100%,#ffffff19,transparent 50%);opacity:.65;animation:liquid 10s ease-in-out infinite alternate}.player-shell:after{content:"";position:absolute;inset:1px;border-radius:inherit;pointer-events:none;z-index:3;box-shadow:inset 0 2px 4px #ffffff35,inset 0 -2px 5px #ffffff13}@supports (backdrop-filter:url("#liquid-refract")) or (-webkit-backdrop-filter:url("#liquid-refract")){.player-shell{backdrop-filter:url("#liquid-refract") blur(9px) saturate(165%);-webkit-backdrop-filter:url("#liquid-refract") blur(9px) saturate(165%)}}@keyframes liquid{to{transform:translate(4%,-4%) scale(1.12)}}
-.player-top{display:flex;align-items:center;gap:10px}.cover{height:38px;width:38px;flex:0 0 38px;border-radius:9px;object-fit:cover;background:#242424}.song{flex:1;min-width:0}.song-title{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.song-sub{font-size:10px;color:#ffffffa3;margin-top:4px}.play{border:1px solid #ffffff40;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;background:#ffffff21;color:#fff;cursor:none;flex:0 0 32px}.play svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.timeline{display:flex;align-items:center;gap:8px;margin-top:11px}.time{font-size:9px;color:#ffffffa9;font-variant-numeric:tabular-nums;min-width:27px}.time:last-child{text-align:right}.seek{flex:1;min-width:0;height:3px;appearance:none;-webkit-appearance:none;border-radius:20px;background:linear-gradient(to right,#fff var(--progress,0%),#ffffff42 var(--progress,0%));outline:none;cursor:none}.seek::-webkit-slider-thumb{-webkit-appearance:none;width:8px;height:8px;border-radius:50%;background:#fff}.seek::-moz-range-thumb{width:8px;height:8px;border:0;border-radius:50%;background:#fff}#yt-host{position:fixed;width:200px;height:200px;left:-9999px;top:0;pointer-events:none}
-.player.collapsed{transform:translate(-50%,calc(100% - 26px + 22px + env(safe-area-inset-bottom)));pointer-events:none}.player.collapsed .player-toggle{pointer-events:auto}.player-toggle{display:grid;place-items:center;margin:0 auto 7px;width:42px;height:26px;padding:0;border:1px solid #ffffff50;border-radius:14px;background:#ffffff20;color:#fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1px #ffffff40;cursor:none;pointer-events:auto}.player-toggle svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .42s cubic-bezier(.2,1.5,.4,1)}.player.collapsed .player-toggle svg{transform:rotate(180deg)}.player.collapsed .player-shell{pointer-events:none}.player.jelly .player-shell{animation:jelly .72s cubic-bezier(.2,.8,.3,1)}@keyframes jelly{0%{transform:scale(1,1)}30%{transform:scale(1.035,.91)}52%{transform:scale(.978,1.055)}74%{transform:scale(1.012,.982)}100%{transform:scale(1,1)}}
-@media(hover:none),(pointer:coarse){body,.enter,.play,.seek,.player-toggle{cursor:auto}.cursor-dot,.sparkle{display:none}}@media(prefers-reduced-motion:reduce){.sparkle,.name-dust{display:none}.player-shell:before{animation:none}.player,.enter,.player-toggle svg{transition:none}.player.jelly .player-shell{animation:none}.name .letter{transition:none}}
-.role-subtitle{position:absolute;left:50%;top:calc(50% + clamp(38px,5.5vw,69px));transform:translateX(-50%);margin:0;color:#8c8c8c;font-size:clamp(12px,1.45vw,16px);font-weight:400;letter-spacing:.045em;white-space:nowrap;opacity:0;transition:opacity .85s ease 1.1s}.role-subtitle.visible{opacity:1}@media(max-width:420px){.role-subtitle{font-size:11px;letter-spacing:.015em}}
-.top-nav{position:fixed;z-index:20;top:max(20px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:8px 11px;border-radius:100px;border:1px solid #ffffff4d;background:linear-gradient(135deg,#ffffff20,#ffffff09 48%,#ffffff18);backdrop-filter:blur(13px) saturate(180%);-webkit-backdrop-filter:blur(13px) saturate(180%);box-shadow:0 10px 38px #0009,inset 0 1px #ffffff6b,inset 0 -1px #ffffff1a;opacity:0;pointer-events:none;transition:opacity .55s ease,top .55s ease;isolation:isolate;overflow:hidden}
-.top-nav.visible{opacity:1;pointer-events:auto}
-.top-nav:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;background:radial-gradient(ellipse at 15% 0%,#ffffff32,transparent 55%),radial-gradient(ellipse at 90% 100%,#ffffff18,transparent 50%);animation:liquid 10s ease-in-out infinite alternate}
-.top-nav:after{content:"";position:absolute;inset:1px;pointer-events:none;border-radius:inherit;box-shadow:inset 0 2px 4px #ffffff35,inset 0 -2px 5px #ffffff13}
-.top-nav a,.top-nav button{width:42px;height:38px;border:0;border-radius:100px;display:grid;place-items:center;appearance:none;background:transparent;color:#e8e8e8;text-decoration:none;cursor:none;transition:background .2s ease,transform .25s ease,color .2s ease}
-.top-nav a:hover,.top-nav button:hover,.top-nav a:focus-visible,.top-nav button:focus-visible{background:#ffffff26;color:#fff;transform:translateY(-1px);outline:none}
-.top-nav svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.top-nav .active{background:#ffffff1f;color:#fff}
-@supports (backdrop-filter:url("#liquid-refract")) or (-webkit-backdrop-filter:url("#liquid-refract")){.top-nav{backdrop-filter:url("#liquid-refract") blur(9px) saturate(165%);-webkit-backdrop-filter:url("#liquid-refract") blur(9px) saturate(165%)}}
-@media(hover:none),(pointer:coarse){.top-nav a,.top-nav button{cursor:auto}}
-@media(prefers-reduced-motion:reduce){.top-nav:before{animation:none}.top-nav{transition:none}}
-
-/* full-screen sections and page position */
-html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
-body{overflow-x:hidden;overflow-y:hidden}
-body.entered{overflow-y:auto}
-main{position:relative;scroll-snap-align:start;scroll-snap-stop:always}
-.page-section{position:relative;width:100%;height:100dvh;min-height:100dvh;background:#000;scroll-snap-align:start;scroll-snap-stop:always}
-.section-dots{position:fixed;right:clamp(14px,2.8vw,42px);top:50%;transform:translateY(-50%);z-index:22;display:flex;flex-direction:column;gap:13px;opacity:0;pointer-events:none;transition:opacity .4s ease}
-.section-dots.visible{opacity:1;pointer-events:auto}
-.section-dot{appearance:none;display:grid;place-items:center;width:24px;height:24px;padding:0;border:0;background:transparent;cursor:none}
-.section-dot:before{content:"";display:block;width:7px;height:7px;border-radius:50%;background:#666;transition:background .25s ease,transform .25s ease,box-shadow .25s ease}
-.section-dot.active:before{background:#fff;transform:scale(1.15);box-shadow:0 0 9px #ffffff60}
-.section-dot:hover:before{background:#ccc;transform:scale(1.25)}
-.section-dot:focus-visible{outline:1px solid #fff;outline-offset:2px;border-radius:50%}
-@media(hover:none),(pointer:coarse){.section-dot{cursor:pointer}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.section-dots,.section-dot:before{transition:none}}
-.about-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(590px,calc(100% - 90px));text-align:left}.about-eyebrow{display:block;color:#777;font-size:12px;letter-spacing:.075em;margin-bottom:18px}.about-content h2{font-size:clamp(37px,6vw,64px);letter-spacing:-.055em;font-weight:700;line-height:1.08;margin:0 0 28px}.about-content p{font-size:clamp(14px,1.7vw,17px);line-height:1.85;color:#aaa;font-weight:400;margin:0 0 17px}.about-content p:last-child{margin-bottom:0}@media(max-width:520px){.about-content{width:calc(100% - 80px)}.about-content h2{margin-bottom:22px}.about-content p{line-height:1.7}}.websites-content{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(590px,calc(100% - 90px));text-align:left}.websites-eyebrow{display:block;color:#777;font-size:12px;letter-spacing:.075em;margin-bottom:18px}.websites-content h2{font-size:clamp(37px,6vw,64px);letter-spacing:-.055em;line-height:1.08;margin:0 0 34px;font-weight:700}.website-card{display:flex;align-items:center;gap:17px;width:100%;min-height:96px;padding:20px 22px;border:1px solid #ffffff27;border-radius:20px;background:#ffffff08;text-decoration:none;color:#fff;transition:background .2s ease,border-color .2s ease,transform .2s ease;cursor:none}.website-card:hover{background:#ffffff12;border-color:#ffffff58;transform:translateY(-2px)}.website-card-icon{display:grid;place-items:center;width:46px;height:46px;flex:none;border-radius:13px;background:#ffffff12}.website-card-icon svg{width:23px;height:23px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.website-card-text{display:flex;flex:1;flex-direction:column;gap:6px;min-width:0}.website-card-text strong{font-size:18px;letter-spacing:-.025em;font-weight:600}.website-card-text span{font-size:13px;color:#888}.website-external{width:19px;height:19px;flex:none;fill:none;stroke:#999;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}@media(hover:none),(pointer:coarse){.website-card{cursor:pointer}}@media(max-width:520px){.websites-content{width:calc(100% - 80px)}.website-card{padding:16px;gap:12px}}.website-screenshot{position:relative;display:block;width:100%;aspect-ratio:2048/1159;overflow:hidden;border:1px solid #ffffff27;border-radius:16px;background:#111;cursor:none;transition:border-color .25s ease,transform .3s ease}.website-screenshot>img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s ease,filter .35s ease}.website-hover-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:9px;background:#0009;color:#fff;font-size:15px;font-weight:600;letter-spacing:-.01em;opacity:0;transition:opacity .25s ease}.website-hover-label svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.website-screenshot:hover,.website-screenshot:focus-visible{border-color:#ffffff75;transform:translateY(-2px)}.website-screenshot:hover>img,.website-screenshot:focus-visible>img{transform:scale(1.025);filter:brightness(.65)}.website-screenshot:hover .website-hover-label,.website-screenshot:focus-visible .website-hover-label{opacity:1}@media(hover:none),(pointer:coarse){.website-screenshot{cursor:pointer}.website-hover-label{opacity:1;inset:auto 0 0;height:52px;background:linear-gradient(transparent,#000c)}}.about-heading{display:flex;align-items:center;gap:15px;flex-wrap:wrap}.about-avatar{width:clamp(44px,5vw,64px);height:clamp(44px,5vw,64px);border-radius:50%;object-fit:cover;flex:none;border:1px solid #ffffff35}@media(max-width:520px){.about-heading{gap:10px}}html{overflow:hidden;scroll-snap-type:none}html.entered{overflow-y:auto;scroll-snap-type:y mandatory}body:not(.entered) .top-nav,body:not(.entered) .section-dots{opacity:0;pointer-events:none}.about-avatar{width:clamp(70px,7.5vw,100px)!important;height:clamp(70px,7.5vw,100px)!important;border-radius:50%;object-fit:cover;object-position:center;display:block}.about-heading{gap:18px;flex-wrap:nowrap}@media(max-width:520px){.about-avatar{width:64px!important;height:64px!important}.about-heading{gap:10px}}.education-content{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(590px,calc(100% - 90px));text-align:left}.education-eyebrow{display:block;color:#777;font-size:12px;letter-spacing:.075em;margin-bottom:18px}.education-content h2{font-size:clamp(37px,6vw,64px);letter-spacing:-.055em;line-height:1.08;margin:0 0 42px;font-weight:700}.education-entry{border-left:1px solid #ffffff4a;padding:4px 0 4px 24px}.education-date{display:block;color:#777;font-size:12px;letter-spacing:.02em;margin-bottom:15px}.education-entry h3{font-size:clamp(21px,3vw,27px);font-weight:600;letter-spacing:-.035em;margin:0 0 10px}.education-entry p{color:#aaa;font-size:15px;margin:0 0 19px}.education-status{color:#bbb;font-size:12px;border:1px solid #ffffff30;border-radius:100px;padding:7px 12px;display:inline-block}@media(max-width:520px){.education-content{width:calc(100% - 80px)}}.external-links{position:fixed;top:max(20px,env(safe-area-inset-top));right:clamp(18px,3vw,48px);z-index:21;display:flex;align-items:center;gap:13px;opacity:0;pointer-events:none;transition:opacity .55s ease}.external-links.visible{opacity:1;pointer-events:auto}.external-links a,.external-links button{width:30px;height:38px;display:grid;place-items:center;background:none;border:0;padding:0;color:#d6d6d6;cursor:none;transition:color .2s ease,transform .2s ease}.external-links a:hover,.external-links button:hover{color:#fff;transform:translateY(-2px)}.external-links svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}@media(max-width:680px){.external-links{right:12px;top:74px;gap:8px}.external-links a,.external-links button{width:26px;height:28px}.external-links svg{width:17px;height:17px}}@media(hover:none),(pointer:coarse){.external-links a,.external-links button{cursor:auto}}body:not(.entered) .external-links{opacity:0;pointer-events:none}.games-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(860px,calc(100% - 100px));max-height:calc(100vh - 190px);display:flex;flex-direction:column}.games-eyebrow{font-size:12px;letter-spacing:.075em;color:#777;margin-bottom:16px}.games-content h2{font-size:clamp(37px,6vw,64px);letter-spacing:-.055em;line-height:1.08;margin:0 0 30px}.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:16px;overflow-y:auto;min-height:100px;max-height:min(55vh,510px);scrollbar-width:thin;scrollbar-color:#444 transparent;padding:2px 3px 12px}.game-card{display:block;position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#151515;text-decoration:none;color:white;isolation:isolate}.game-card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease,filter .35s ease}.game-card:hover img,.game-card:focus-visible img{transform:scale(1.06);filter:brightness(.36)}.game-overlay{position:absolute;inset:0;background:linear-gradient(transparent,#000d);display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:7px;padding:14px;opacity:0;transition:opacity .25s ease}.game-card:hover .game-overlay,.game-card:focus-visible .game-overlay{opacity:1}.game-title{font-size:14px;font-weight:600;line-height:1.25}.game-visit{font-size:12px;color:#d0d0d0}.games-message{color:#888;font-size:14px;grid-column:1/-1}.games-message a{color:#fff}@media(hover:none){.game-overlay{opacity:1;background:linear-gradient(transparent 35%,#000e)}}@media(max-width:520px){.games-content{width:calc(100% - 56px);max-height:calc(100vh - 170px)}.games-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.games-content h2{margin-bottom:22px}.game-overlay{padding:10px}.game-title{font-size:12px}}.experience-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(600px,calc(100% - 88px));max-height:calc(100vh - 160px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:#444 transparent}.experience-eyebrow{display:block;color:#777;font-size:12px;letter-spacing:.075em;margin-bottom:17px}.experience-content h2{font-size:clamp(37px,6vw,64px);font-weight:700;letter-spacing:-.055em;line-height:1.08;margin:0 0 35px}.experience-list{display:flex;flex-direction:column;gap:27px}.experience-item{display:flex;align-items:center;gap:18px}.experience-icon{flex:0 0 42px;width:42px;height:42px;border-radius:50%;background:#171717;display:grid;place-items:center}.experience-icon svg{width:20px;height:20px;fill:none;stroke:#ddd;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.experience-item h3{font-size:17px;letter-spacing:-.025em;font-weight:600;margin:0 0 6px}.experience-item p{color:#888;font-size:13px;margin:0;line-height:1.5}@media(max-width:520px){.experience-content{width:calc(100% - 72px)}.experience-content h2{margin-bottom:28px}.experience-list{gap:23px}.experience-icon{flex-basis:38px;width:38px;height:38px}.experience-item{gap:13px}.experience-item h3{font-size:15px}.experience-item p{font-size:12px}}</style></head><body>
-<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true"><filter id="liquid-refract" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.018 0.055" numOctaves="2" seed="7" result="noise"><animate attributeName="baseFrequency" values="0.018 0.055;0.023 0.043;0.018 0.055" dur="12s" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="noise" scale="24" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#000">
+<title>nylo</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+<filter id="liquid-refract" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.018 0.055" numOctaves="2" seed="7" result="noise">
+<animate attributeName="baseFrequency" values="0.018 0.055;0.023 0.043;0.018 0.055" dur="12s" repeatCount="indefinite"/>
+</feTurbulence>
+<feDisplacementMap in="SourceGraphic" in2="noise" scale="24" xChannelSelector="R" yChannelSelector="G"/>
+</filter>
+</svg>
 <nav class="top-nav" id="top-nav" aria-label="main navigation">
-<button type="button" class="active" id="nav-home" aria-label="home" title="home"><svg viewBox="0 0 24 24"><path d="m3.5 10 8.5-7 8.5 7v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M9 21v-8h6v8"/></svg></button>
-<button type="button" id="nav-about" aria-label="about" title="about"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20v-1.5a7 7 0 0 1 14 0V20"/></svg></button>
-<button type="button" id="nav-websites" aria-label="my websites" title="my websites"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9s-1.4 6.5-4.1 9M12 3C9.3 5.5 7.9 8.5 7.9 12s1.4 6.5 4.1 9"/></svg></button>
-<button type="button" id="nav-education" aria-label="education" title="education"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5-10-5Z"/><path d="M6 11v6c3.7 2.7 8.3 2.7 12 0v-6M22 9v7"/></svg></button><button type="button" id="nav-games" aria-label="games" title="games"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10a4 4 0 0 1 3.9 3.1l1 5a2.5 2.5 0 0 1-4 2.4l-2.2-1.9H8.3l-2.2 1.9a2.5 2.5 0 0 1-4-2.4l1-5A4 4 0 0 1 7 8Z"/><path d="M7.5 11v5M5 13.5h5M16.5 12.5h.01M19 14.5h.01"/></svg></button><button type="button" id="nav-experience" aria-label="experience" title="experience"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13c5 3 13 3 18 0M12 13v3"/></svg></button></nav><div class="external-links" id="external-links" aria-label="external links"><a href="mailto:codi.isme@gmail.com" aria-label="email" title="email me"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/></svg></a>
-<a href="https://github.com/ItsMeCodyy" target="_blank" rel="noopener noreferrer" aria-label="github" title="github"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.82c.56.11.77-.24.77-.54v-2.1c-3.13.68-3.79-1.32-3.79-1.32-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .17 2.63.75 3.24-.55.1-.72.39-1.22.7-1.5-2.5-.28-5.13-1.25-5.13-5.55 0-1.22.44-2.22 1.16-3-.12-.29-.5-1.42.11-2.96 0 0 .95-.3 3.08 1.14A10.73 10.73 0 0 1 12 6.1c.95 0 1.91.13 2.8.38 2.14-1.44 3.09-1.14 3.09-1.14.61 1.54.23 2.67.11 2.96.73.78 1.16 1.78 1.16 3 0 4.31-2.63 5.26-5.14 5.54.4.35.75 1.05.75 2.12v3.12c0 .3.2.66.78.54A11.2 11.2 0 0 0 12 .8Z"/></svg></a>
-<a href="https://www.linkedin.com/in/nylo-refined-73352243b/" target="_blank" rel="noopener noreferrer" aria-label="linkedin" title="linkedin"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.94 18.75H4.97V9.2h2.97v9.55ZM6.46 7.9a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.29 10.85h-2.97V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.47V9.2h2.85v1.3h.04c.4-.75 1.37-1.54 2.82-1.54 3.02 0 3.57 1.98 3.57 4.56v5.23Z"/></svg></a>
-</div><main id="section-home"><button class="enter" id="enter" type="button">click to enter</button><h1 class="name" id="name" aria-label="nylo refined"></h1><p class="role-subtitle" id="role-subtitle">software engineer · game developer · creative developer</p></main><section class="page-section" id="section-two" aria-label="about me"><div class="about-content"><span class="about-eyebrow">a little about me</span><h2 class="about-heading">hey, i'm nylo. <img class="about-avatar" src="https://avatars.githubusercontent.com/u/309947781?v=4" alt="nylo profile picture"></h2><p>i'm a developer who loves making things from scratch. i started coding in 2021, and i've been building websites, games, apps, and random ideas ever since.</p><p>i work with python, javascript, and luau. i'm also heading into game development at gwinnett technical college in january 2027.</p><p>i like turning ideas into something real, experimenting with new things, and figuring stuff out along the way. still learning, still building.</p></div></section><section class="page-section" id="section-three" aria-label="my websites"><div class="websites-content"><span class="websites-eyebrow">things i've made</span><h2>my websites.</h2><a class="website-screenshot" href="https://cineamaze.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="view cineamaze website"><img src="https://image.thum.io/get/width/1400/crop/800/noanimate/https://cineamaze.vercel.app/" alt="cineamaze movie website homepage screenshot" loading="lazy"><span class="website-hover-label">view this website <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></div></section><section class="page-section" id="section-four" aria-label="education"><div class="education-content"><span class="education-eyebrow">education</span><h2>where i'm learning.</h2><div class="education-entry"><span class="education-date">january 2027 — graduation date tbd</span><h3>gwinnett technical college</h3><p>game development · diploma</p><span class="education-status">starting soon</span></div></div></section><section class="page-section" id="section-five" aria-label="my games"><div class="games-content"><span class="games-eyebrow">things i've built</span><h2>my roblox games.</h2><div class="games-grid" id="games-grid" aria-live="polite"><p class="games-message">loading games...</p></div></div></section><section class="page-section" id="section-six" aria-label="my experience"><div class="experience-content"><span class="experience-eyebrow">what i've worked on</span><h2>my experience.</h2><div class="experience-list"><div class="experience-item"><span class="experience-icon"><svg viewBox="0 0 24 24"><path d="m8 5-7 7 7 7M16 5l7 7-7 7M14 3l-4 18"/></svg></span><div><h3>software development</h3><p>python · javascript · typescript · luau</p></div></div><div class="experience-item"><span class="experience-icon"><svg viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 3.9 3.1l1 5a2.5 2.5 0 0 1-4 2.4l-2.2-1.9H8.3l-2.2 1.9a2.5 2.5 0 0 1-4-2.4l1-5A4 4 0 0 1 7 8Z"/><path d="M7.5 11v5M5 13.5h5M16.5 12.5h.01M19 14.5h.01"/></svg></span><div><h3>game development</h3><p>roblox studio · gameplay systems · plugins</p></div></div><div class="experience-item"><span class="experience-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9s-1.4 6.5-4.1 9M12 3C9.3 5.5 7.9 8.5 7.9 12s1.4 6.5 4.1 9"/></svg></span><div><h3>web development</h3><p>websites · interfaces · deployment</p></div></div><div class="experience-item"><span class="experience-icon"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="13" rx="2"/><path d="M9 8V5a3 3 0 0 1 6 0v3M4 13h16"/></svg></span><div><h3>independent creator</h3><p>digital products · developer tools</p></div></div></div></div></section><nav class="section-dots" id="section-dots" aria-label="page sections"><button type="button" class="section-dot active" data-section="0" aria-label="section 1" aria-current="true"></button><button type="button" class="section-dot" data-section="1" aria-label="section 2"></button><button type="button" class="section-dot" data-section="2" aria-label="section 3"></button><button type="button" class="section-dot" data-section="3" aria-label="section 4"></button><button type="button" class="section-dot" data-section="4" aria-label="section 5"></button><button type="button" class="section-dot" data-section="5" aria-label="section 6"></button></nav>
-<section class="player" id="player" aria-label="music player"><button class="player-toggle" id="player-toggle" type="button" aria-label="hide music player" aria-expanded="true"><svg viewBox="0 0 24 24"><path d="m5.5 14 6.5-6.5 6.5 6.5"/></svg></button><div class="player-shell"><div class="player-top"><img class="cover" src="https://i.ytimg.com/vi/IYiY5oVmrzo/hqdefault.jpg" alt="song artwork"><div class="song"><div class="song-title" id="song-title">loading song...</div><div class="song-sub">youtube</div></div><button class="play" id="play" type="button" aria-label="pause music"><svg id="play-icon" viewBox="0 0 24 24"><rect x="6.5" y="5" width="3.5" height="14" rx="1.75"/><rect x="14" y="5" width="3.5" height="14" rx="1.75"/></svg></button></div><div class="timeline"><span class="time" id="elapsed">0:00</span><input class="seek" id="seek" type="range" min="0" max="100" value="0" aria-label="song timeline"><span class="time" id="duration">0:00</span></div></div></section><div class="cursor-dot" id="cursor" aria-hidden="true"></div><div id="yt-host" aria-hidden="true"></div>
-<script>if('scrollRestoration' in history)history.scrollRestoration='manual';window.scrollTo(0,0);window.addEventListener('pageshow',()=>{if(!document.body.classList.contains('entered'))window.scrollTo({top:0,left:0,behavior:'instant'})});</script><script>
-(()=>{const dot=document.getElementById('cursor'),enter=document.getElementById('enter'),playerEl=document.getElementById('player'),playBtn=document.getElementById('play'),icon=document.getElementById('play-icon'),seek=document.getElementById('seek'),elapsed=document.getElementById('elapsed'),durationEl=document.getElementById('duration');const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(pointer: fine)').matches;let last=0,yt=null,ready=false,entered=false,playing=false;
-if(fine){window.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;dot.style.opacity='1';dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';if(reduced)return;const now=performance.now();if(now-last<22)return;last=now;for(let i=0;i<2;i++){const s=document.createElement('span');s.className='sparkle';s.style.left=e.clientX+(Math.random()-.5)*9+'px';s.style.top=e.clientY+(Math.random()-.5)*9+'px';s.style.setProperty('--dx',(Math.random()-.5)*18+'px');s.style.setProperty('--dy',(Math.random()-.5)*18+'px');document.body.appendChild(s);s.addEventListener('animationend',()=>s.remove(),{once:true});}},{passive:true});document.addEventListener('pointerleave',()=>dot.style.opacity='0');}
-const fmt=n=>{n=Math.max(0,Math.floor(n||0));return Math.floor(n/60)+':'+String(n%60).padStart(2,'0')};const setPlaying=state=>{playing=state;icon.innerHTML=state?'<rect x="6.5" y="5" width="3.5" height="14" rx="1.75"/><rect x="14" y="5" width="3.5" height="14" rx="1.75"/>':'<path d="M8 5.5a1 1 0 0 1 1.5-.86l10 6.5a1 1 0 0 1 0 1.72l-10 6.5A1 1 0 0 1 8 18.5z"/>';playBtn.setAttribute('aria-label',state?'pause music':'play music')};
-const sync=()=>{if(!yt||!ready)return;const len=yt.getDuration()||0,pos=yt.getCurrentTime()||0;elapsed.textContent=fmt(pos);durationEl.textContent=fmt(len);seek.value=len?Math.min(100,pos/len*100):0;seek.style.setProperty('--progress',seek.value+'%')};
-window.onYouTubeIframeAPIReady=()=>{yt=new YT.Player('yt-host',{width:'200',height:'200',videoId:'IYiY5oVmrzo',playerVars:{playsinline:1,controls:0,rel:0,loop:1,playlist:'IYiY5oVmrzo'},events:{onReady:()=>{ready=true;sync();if(entered)yt.playVideo()},onStateChange:e=>{if(e.data===YT.PlayerState.ENDED){yt.seekTo(0,true);yt.playVideo();return}setPlaying(e.data===YT.PlayerState.PLAYING);sync()},onError:()=>{document.getElementById('song-title').textContent='video unavailable';setPlaying(false)}}})};const load=()=>{if(window.YT&&window.YT.Player){window.onYouTubeIframeAPIReady();return}const script=document.createElement('script');script.src='https://www.youtube.com/iframe_api';document.head.appendChild(script)};
-const name=document.getElementById('name');name.innerHTML=Array.from('nylo refined').map(c=>c===' '?' <span class="letter space blackhole-space" aria-hidden="true"><svg class="name-blackhole" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="bh-halo"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".40" stop-color="#fff" stop-opacity="0"/><stop offset=".54" stop-color="#fff" stop-opacity=".9"/><stop offset=".69" stop-color="#aaa" stop-opacity=".48"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="bh-ring" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".1"/><stop offset=".24" stop-color="#fff"/><stop offset=".52" stop-color="#777"/><stop offset=".75" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity=".12"/></linearGradient><radialGradient id="bh-core"><stop offset=".65" stop-color="#000"/><stop offset=".88" stop-color="#080808"/><stop offset="1" stop-color="#242424"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#bh-halo)"/><ellipse cx="50" cy="50" rx="44" ry="19" fill="none" stroke="url(#bh-ring)" stroke-width="8" transform="rotate(-25 50 50)"/><circle cx="50" cy="50" r="25" fill="url(#bh-core)"/><path d="M17 64Q51 85 85 37" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="3" stroke-linecap="round"/><path d="M19 65Q52 88 86 38" fill="none" stroke="#aaa" stroke-opacity=".4" stroke-width="7" stroke-linecap="round"/></svg></span>':'<span class="letter" aria-hidden="true">'+c+'</span>').join('');
-const letters=[...name.querySelectorAll('.letter:not(.space)')];const hole=name.querySelector('.blackhole-space');let hoverTimer=null,hovering=false;
-function burst(rect,count=18){if(reduced)return;const frag=document.createDocumentFragment();for(let i=0;i<count;i++){const p=document.createElement('i');p.className='name-dust';p.style.left=rect.left+Math.random()*rect.width+'px';p.style.top=rect.top+Math.random()*rect.height+'px';p.style.setProperty('--s',(1+Math.random()*2.2)+'px');p.style.setProperty('--dx',(Math.random()-.5)*56+'px');p.style.setProperty('--dy',(Math.random()-.5)*52+'px');p.style.setProperty('--dur',(.35+Math.random()*.55)+'s');p.addEventListener('animationend',()=>p.remove(),{once:true});frag.appendChild(p)}document.body.appendChild(frag)}
-function reveal(){name.classList.add('revealed');document.getElementById('role-subtitle').classList.add('visible');letters.forEach((letter,i)=>setTimeout(()=>{letter.classList.add('lit');burst(letter.getBoundingClientRect(),28)},i*125));setTimeout(()=>hole.classList.add('lit'),500);}
-name.addEventListener('pointerenter',()=>{if(!entered||reduced)return;hovering=true;const tick=()=>{if(!hovering)return;const letter=letters[Math.floor(Math.random()*letters.length)];burst(letter.getBoundingClientRect(),7);hoverTimer=setTimeout(tick,65)};tick()});
-name.addEventListener('pointerleave',()=>{hovering=false;clearTimeout(hoverTimer)});
-enter.addEventListener('click',()=>{if(entered)return;entered=true;enter.style.opacity='0';enter.disabled=true;reveal();playerEl.classList.add('visible');document.body.classList.add('entered');document.documentElement.classList.add('entered');document.getElementById('section-dots').classList.add('visible');document.getElementById('top-nav').classList.add('visible');document.getElementById('external-links').classList.add('visible');load()});
-const sections=[document.getElementById('section-home'),document.getElementById('section-two'),document.getElementById('section-three'),document.getElementById('section-four'),document.getElementById('section-five'),document.getElementById('section-six')];
-const dots=[...document.querySelectorAll('.section-dot')];
-const setActiveSection=index=>{dots.forEach((dot,i)=>{dot.classList.toggle('active',i===index);if(i===index)dot.setAttribute('aria-current','true');else dot.removeAttribute('aria-current')})};
-dots.forEach((dot,i)=>dot.addEventListener('click',()=>{if(entered)sections[i].scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'})}));
-let sectionScrollQueued=false;
-window.addEventListener('scroll',()=>{if(sectionScrollQueued)return;sectionScrollQueued=true;requestAnimationFrame(()=>{sectionScrollQueued=false;const center=window.scrollY+window.innerHeight/2;let closest=0,best=Infinity;sections.forEach((section,i)=>{const d=Math.abs(section.offsetTop+section.offsetHeight/2-center);if(d<best){best=d;closest=i}});setActiveSection(closest)})},{passive:true});
-document.getElementById('nav-home').addEventListener('click',()=>sections[0].scrollIntoView({behavior:'smooth',block:'start'}));
-document.getElementById('nav-about').addEventListener('click',()=>sections[1].scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'}));
-
-document.getElementById('nav-websites').addEventListener('click',()=>sections[2].scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'}));document.getElementById('nav-education').addEventListener('click',()=>sections[3].scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'}));document.getElementById('nav-games').addEventListener('click',()=>sections[4].scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'}));document.getElementById('nav-experience').addEventListener('click',()=>sections[5].scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'}));
-const toggle=document.getElementById('player-toggle');toggle.addEventListener('click',()=>{const collapsed=playerEl.classList.toggle('collapsed');toggle.setAttribute('aria-expanded',String(!collapsed));toggle.setAttribute('aria-label',collapsed?'show music player':'hide music player');playerEl.classList.remove('jelly');void playerEl.offsetWidth;playerEl.classList.add('jelly')});playerEl.addEventListener('animationend',e=>{if(e.animationName==='jelly')playerEl.classList.remove('jelly')});
-playBtn.addEventListener('click',()=>{if(!ready)return;if(playing)yt.pauseVideo();else yt.playVideo()});seek.addEventListener('input',()=>{seek.style.setProperty('--progress',seek.value+'%');if(ready){const len=yt.getDuration();if(len)yt.seekTo(len*Number(seek.value)/100,true);sync()}});setInterval(sync,350);
-fetch('https://noembed.com/embed?url='+encodeURIComponent('https://www.youtube.com/watch?v=IYiY5oVmrzo')).then(r=>r.json()).then(d=>{document.getElementById('song-title').textContent=d.title||'youtube music'}).catch(()=>{document.getElementById('song-title').textContent='youtube music'});
-})();
-</script><script>(function(){
-const grid=document.getElementById('games-grid');if(!grid)return;
-const userId=670957183;
-const sources=['https://games.roblox.com','https://games.roproxy.com'];
-async function getJSON(paths){
-let lastError;
-for(const base of sources)for(const path of paths){
-try{const res=await fetch(base+path,{signal:AbortSignal.timeout(8500)});if(!res.ok)throw Error(String(res.status));const data=await res.json();if(data&&Array.isArray(data.data))return data;throw Error('invalid response')}catch(err){lastError=err}
-}throw lastError||Error('unavailable');
-}
-async function loadGames(){
-try{
-const games=[],seen=new Set();let cursor='';
-for(let page=0;page<12;page++){
-const path='/v2/users/'+userId+'/games?accessFilter=Public&sortOrder=Desc&limit=50'+(cursor?'&cursor='+encodeURIComponent(cursor):'');
-const result=await getJSON([path]);
-for(const game of result.data){if(game&&game.id&&!seen.has(game.id)){seen.add(game.id);games.push(game)}}
-cursor=result.nextPageCursor;if(!cursor)break;
-}
-if(!games.length){grid.innerHTML='<p class="games-message">no public games found yet.</p>';return}
-const ids=games.map(g=>g.id),icons=new Map();
-for(let i=0;i<ids.length;i+=100){
-const path='/v1/games/icons?universeIds='+ids.slice(i,i+100).join(',')+'&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false';
-for(const base of ['https://thumbnails.roblox.com','https://thumbnails.roproxy.com']){
-try{const res=await fetch(base+path,{signal:AbortSignal.timeout(8500)});if(!res.ok)continue;const data=await res.json();if(Array.isArray(data.data)){data.data.forEach(icon=>{if(icon.imageUrl)icons.set(icon.targetId,icon.imageUrl)});break}}catch(e){}
-}
-}
-grid.replaceChildren();
-for(const game of games){
-const card=document.createElement('a');card.className='game-card';card.href='https://www.roblox.com/games/'+(game.rootPlace&&game.rootPlace.id?game.rootPlace.id:game.id);card.target='_blank';card.rel='noopener noreferrer';card.setAttribute('aria-label',game.name+' — visit game');
-const img=document.createElement('img');img.alt=game.name;img.loading='lazy';img.src=icons.get(game.id)||'https://placehold.co/512x512/171717/777777?text=game';
-const overlay=document.createElement('span');overlay.className='game-overlay';
-const title=document.createElement('span');title.className='game-title';title.textContent=game.name;
-const visit=document.createElement('span');visit.className='game-visit';visit.textContent='visit game ↗';
-overlay.append(title,visit);card.append(img,overlay);grid.append(card);
-}
-}catch(e){grid.innerHTML='<p class="games-message">couldn\'t load games right now. <a href="https://www.roblox.com/users/670957183/profile#!/creations" target="_blank" rel="noopener noreferrer">view on roblox</a></p>'}
-}
-loadGames();
-})();</script></body></html>
+<button type="button" class="active" id="nav-home" aria-label="home" title="home">
+<svg viewBox="0 0 24 24">
+<path d="m3.5 10 8.5-7 8.5 7v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>
+<path d="M9 21v-8h6v8"/>
+</svg>
+</button>
+<button type="button" id="nav-about" aria-label="about" title="about">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="3.5"/>
+<path d="M5 20v-1.5a7 7 0 0 1 14 0V20"/>
+</svg>
+</button>
+<button type="button" id="nav-websites" aria-label="my websites" title="my websites">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<circle cx="12" cy="12" r="9"/>
+<path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9s-1.4 6.5-4.1 9M12 3C9.3 5.5 7.9 8.5 7.9 12s1.4 6.5 4.1 9"/>
+</svg>
+</button>
+<button type="button" id="nav-education" aria-label="education" title="education">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="m2 9 10-5 10 5-10 5-10-5Z"/>
+<path d="M6 11v6c3.7 2.7 8.3 2.7 12 0v-6M22 9v7"/>
+</svg>
+</button>
+<button type="button" id="nav-games" aria-label="games" title="games">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M7 8h10a4 4 0 0 1 3.9 3.1l1 5a2.5 2.5 0 0 1-4 2.4l-2.2-1.9H8.3l-2.2 1.9a2.5 2.5 0 0 1-4-2.4l1-5A4 4 0 0 1 7 8Z"/>
+<path d="M7.5 11v5M5 13.5h5M16.5 12.5h.01M19 14.5h.01"/>
+</svg>
+</button>
+<button type="button" id="nav-experience" aria-label="experience" title="experience">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<rect x="3" y="7" width="18" height="14" rx="2"/>
+<path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13c5 3 13 3 18 0M12 13v3"/>
+</svg>
+</button>
+</nav>
+<div class="external-links" id="external-links" aria-label="external links">
+<a href="mailto:codi.isme@gmail.com" aria-label="email" title="email me">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<rect x="3" y="5" width="18" height="14" rx="2"/>
+<path d="m3 7 9 7 9-7"/>
+</svg>
+</a>
+<a href="https://github.com/ItsMeCodyy" target="_blank" rel="noopener noreferrer" aria-label="github" title="github">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none">
+<path d="M12 .8a11.2 11.2 0 0 0-3.54 21.82c.56.11.77-.24.77-.54v-2.1c-3.13.68-3.79-1.32-3.79-1.32-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .17 2.63.75 3.24-.55.1-.72.39-1.22.7-1.5-2.5-.28-5.13-1.25-5.13-5.55 0-1.22.44-2.22 1.16-3-.12-.29-.5-1.42.11-2.96 0 0 .95-.3 3.08 1.14A10.73 10.73 0 0 1 12 6.1c.95 0 1.91.13 2.8.38 2.14-1.44 3.09-1.14 3.09-1.14.61 1.54.23 2.67.11 2.96.73.78 1.16 1.78 1.16 3 0 4.31-2.63 5.26-5.14 5.54.4.35.75 1.05.75 2.12v3.12c0 .3.2.66.78.54A11.2 11.2 0 0 0 12 .8Z"/>
+</svg>
+</a>
+<a href="https://www.linkedin.com/in/nylo-refined-73352243b/" target="_blank" rel="noopener noreferrer" aria-label="linkedin" title="linkedin">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none">
+<path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.94 18.75H4.97V9.2h2.97v9.55ZM6.46 7.9a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.29 10.85h-2.97V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.47V9.2h2.85v1.3h.04c.4-.75 1.37-1.54 2.82-1.54 3.02 0 3.57 1.98 3.57 4.56v5.23Z"/>
+</svg>
+</a>
+</div>
+<main id="section-home">
+<button class="enter" id="enter" type="button">click to enter</button>
+<h1 class="name" id="name" aria-label="nylo refined">
+</h1>
+<p class="role-subtitle" id="role-subtitle">software engineer · game developer · creative developer</p>
+</main>
+<section class="page-section" id="section-two" aria-label="about me">
+<div class="about-content">
+<span class="about-eyebrow">a little about me</span>
+<h2 class="about-heading">hey, i'm nylo. <img class="about-avatar" src="https://avatars.githubusercontent.com/u/309947781?v=4" alt="nylo profile picture">
+</h2>
+<p>i'm a developer who loves making things from scratch. i started coding in 2021, and i've been building websites, games, apps, and random ideas ever since.</p>
+<p>i work with python, javascript, and luau. i'm also heading into game development at gwinnett technical college in january 2027.</p>
+<p>i like turning ideas into something real, experimenting with new things, and figuring stuff out along the way. still learning, still building.</p>
+</div>
+</section>
+<section class="page-section" id="section-three" aria-label="my websites">
+<div class="websites-content">
+<span class="websites-eyebrow">things i've made</span>
+<h2>my websites.</h2>
+<a class="website-screenshot" href="https://cineamaze.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="view cineamaze website">
+<img src="https://image.thum.io/get/width/1400/crop/800/noanimate/https://cineamaze.vercel.app/" alt="cineamaze movie website homepage screenshot" loading="lazy">
+<span class="website-hover-label">view this website <svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M7 17 17 7M8 7h9v9"/>
+</svg>
+</span>
+</a>
+</div>
+</section>
+<section class="page-section" id="section-four" aria-label="education">
+<div class="education-content">
+<span class="education-eyebrow">education</span>
+<h2>where i'm learning.</h2>
+<div class="education-entry">
+<span class="education-date">january 2027 — graduation date tbd</span>
+<h3>gwinnett technical college</h3>
+<p>game development · diploma</p>
+<span class="education-status">starting soon</span>
+</div>
+</div>
+</section>
+<section class="page-section" id="section-five" aria-label="my games">
+<div class="games-content">
+<span class="games-eyebrow">things i've built</span>
+<h2>my roblox games.</h2>
+<div class="games-grid" id="games-grid" aria-live="polite">
+<p class="games-message">loading games...</p>
+</div>
+</div>
+</section>
+<section class="page-section" id="section-six" aria-label="my experience">
+<div class="experience-content">
+<span class="experience-eyebrow">what i've worked on</span>
+<h2>my experience.</h2>
+<div class="experience-list">
+<div class="experience-item">
+<span class="experience-icon">
+<svg viewBox="0 0 24 24">
+<path d="m8 5-7 7 7 7M16 5l7 7-7 7M14 3l-4 18"/>
+</svg>
+</span>
+<div>
+<h3>software development</h3>
+<p>python · javascript · typescript · luau</p>
+</div>
+</div>
+<div class="experience-item">
+<span class="experience-icon">
+<svg viewBox="0 0 24 24">
+<path d="M7 8h10a4 4 0 0 1 3.9 3.1l1 5a2.5 2.5 0 0 1-4 2.4l-2.2-1.9H8.3l-2.2 1.9a2.5 2.5 0 0 1-4-2.4l1-5A4 4 0 0 1 7 8Z"/>
+<path d="M7.5 11v5M5 13.5h5M16.5 12.5h.01M19 14.5h.01"/>
+</svg>
+</span>
+<div>
+<h3>game development</h3>
+<p>roblox studio · gameplay systems · plugins</p>
+</div>
+</div>
+<div class="experience-item">
+<span class="experience-icon">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9s-1.4 6.5-4.1 9M12 3C9.3 5.5 7.9 8.5 7.9 12s1.4 6.5 4.1 9"/>
+</svg>
+</span>
+<div>
+<h3>web development</h3>
+<p>websites · interfaces · deployment</p>
+</div>
+</div>
+<div class="experience-item">
+<span class="experience-icon">
+<svg viewBox="0 0 24 24">
+<rect x="4" y="8" width="16" height="13" rx="2"/>
+<path d="M9 8V5a3 3 0 0 1 6 0v3M4 13h16"/>
+</svg>
+</span>
+<div>
+<h3>independent creator</h3>
+<p>digital products · developer tools</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<nav class="section-dots" id="section-dots" aria-label="page sections">
+<button type="button" class="section-dot active" data-section="0" aria-label="section 1" aria-current="true">
+</button>
+<button type="button" class="section-dot" data-section="1" aria-label="section 2">
+</button>
+<button type="button" class="section-dot" data-section="2" aria-label="section 3">
+</button>
+<button type="button" class="section-dot" data-section="3" aria-label="section 4">
+</button>
+<button type="button" class="section-dot" data-section="4" aria-label="section 5">
+</button>
+<button type="button" class="section-dot" data-section="5" aria-label="section 6">
+</button>
+</nav>
+<section class="player" id="player" aria-label="music player">
+<button class="player-toggle" id="player-toggle" type="button" aria-label="hide music player" aria-expanded="true">
+<svg viewBox="0 0 24 24">
+<path d="m5.5 14 6.5-6.5 6.5 6.5"/>
+</svg>
+</button>
+<div class="player-shell">
+<div class="player-top">
+<img class="cover" src="https://i.ytimg.com/vi/IYiY5oVmrzo/hqdefault.jpg" alt="song artwork">
+<div class="song">
+<div class="song-title" id="song-title">loading song...</div>
+<div class="song-sub">youtube</div>
+</div>
+<button class="play" id="play" type="button" aria-label="pause music">
+<svg id="play-icon" viewBox="0 0 24 24">
+<rect x="6.5" y="5" width="3.5" height="14" rx="1.75"/>
+<rect x="14" y="5" width="3.5" height="14" rx="1.75"/>
+</svg>
+</button>
+</div>
+<div class="timeline">
+<span class="time" id="elapsed">0:00</span>
+<input class="seek" id="seek" type="range" min="0" max="100" value="0" aria-label="song timeline">
+<span class="time" id="duration">0:00</span>
+</div>
+</div>
+</section>
+<div class="cursor-dot" id="cursor" aria-hidden="true">
+</div>
+<div id="yt-host" aria-hidden="true">
+</div>
+<script src="js/boot.js">
+</script>
+<script src="js/main.js">
+</script>
+<script src="js/games.js">
+</script>
+</body>
+</html>
