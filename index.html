@@ -1,233 +1,301 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#000">
-<title>nylo</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
-<filter id="liquid-refract" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
-<feTurbulence type="fractalNoise" baseFrequency="0.018 0.055" numOctaves="2" seed="7" result="noise">
-<animate attributeName="baseFrequency" values="0.018 0.055;0.023 0.043;0.018 0.055" dur="12s" repeatCount="indefinite"/>
-</feTurbulence>
-<feDisplacementMap in="SourceGraphic" in2="noise" scale="24" xChannelSelector="R" yChannelSelector="G"/>
-</filter>
-</svg>
-<nav class="top-nav" id="top-nav" aria-label="main navigation">
-<button type="button" class="active" id="nav-home" aria-label="home" title="home">
-<svg viewBox="0 0 24 24">
-<path d="m3.5 10 8.5-7 8.5 7v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>
-<path d="M9 21v-8h6v8"/>
-</svg>
-</button>
-<button type="button" id="nav-about" aria-label="about" title="about">
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="8" r="3.5"/>
-<path d="M5 20v-1.5a7 7 0 0 1 14 0V20"/>
-</svg>
-</button>
-<button type="button" id="nav-websites" aria-label="my websites" title="my websites">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<circle cx="12" cy="12" r="9"/>
-<path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9s-1.4 6.5-4.1 9M12 3C9.3 5.5 7.9 8.5 7.9 12s1.4 6.5 4.1 9"/>
-</svg>
-</button>
-<button type="button" id="nav-education" aria-label="education" title="education">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="m2 9 10-5 10 5-10 5-10-5Z"/>
-<path d="M6 11v6c3.7 2.7 8.3 2.7 12 0v-6M22 9v7"/>
-</svg>
-</button>
-<button type="button" id="nav-games" aria-label="games" title="games">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M7 8h10a4 4 0 0 1 3.9 3.1l1 5a2.5 2.5 0 0 1-4 2.4l-2.2-1.9H8.3l-2.2 1.9a2.5 2.5 0 0 1-4-2.4l1-5A4 4 0 0 1 7 8Z"/>
-<path d="M7.5 11v5M5 13.5h5M16.5 12.5h.01M19 14.5h.01"/>
-</svg>
-</button>
-<button type="button" id="nav-experience" aria-label="experience" title="experience">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<rect x="3" y="7" width="18" height="14" rx="2"/>
-<path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13c5 3 13 3 18 0M12 13v3"/>
-</svg>
-</button>
-</nav>
-<div class="external-links" id="external-links" aria-label="external links">
-<a href="mailto:codi.isme@gmail.com" aria-label="email" title="email me">
-<svg viewBox="0 0 24 24" aria-hidden="true">
-<rect x="3" y="5" width="18" height="14" rx="2"/>
-<path d="m3 7 9 7 9-7"/>
-</svg>
-</a>
-<a href="https://github.com/ItsMeCodyy" target="_blank" rel="noopener noreferrer" aria-label="github" title="github">
-<svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none">
-<path d="M12 .8a11.2 11.2 0 0 0-3.54 21.82c.56.11.77-.24.77-.54v-2.1c-3.13.68-3.79-1.32-3.79-1.32-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .17 2.63.75 3.24-.55.1-.72.39-1.22.7-1.5-2.5-.28-5.13-1.25-5.13-5.55 0-1.22.44-2.22 1.16-3-.12-.29-.5-1.42.11-2.96 0 0 .95-.3 3.08 1.14A10.73 10.73 0 0 1 12 6.1c.95 0 1.91.13 2.8.38 2.14-1.44 3.09-1.14 3.09-1.14.61 1.54.23 2.67.11 2.96.73.78 1.16 1.78 1.16 3 0 4.31-2.63 5.26-5.14 5.54.4.35.75 1.05.75 2.12v3.12c0 .3.2.66.78.54A11.2 11.2 0 0 0 12 .8Z"/>
-</svg>
-</a>
-<a href="https://www.linkedin.com/in/nylo-refined-73352243b/" target="_blank" rel="noopener noreferrer" aria-label="linkedin" title="linkedin">
-<svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none">
-<path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.94 18.75H4.97V9.2h2.97v9.55ZM6.46 7.9a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.29 10.85h-2.97V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.47V9.2h2.85v1.3h.04c.4-.75 1.37-1.54 2.82-1.54 3.02 0 3.57 1.98 3.57 4.56v5.23Z"/>
-</svg>
-</a>
-</div>
-<main id="section-home">
-<button class="enter" id="enter" type="button">click to enter</button>
-<h1 class="name" id="name" aria-label="nylo refined">
-</h1>
-<p class="role-subtitle" id="role-subtitle">software engineer · game developer · creative developer</p>
-</main>
-<section class="page-section" id="section-two" aria-label="about me">
-<div class="about-content">
-<span class="about-eyebrow">a little about me</span>
-<h2 class="about-heading">hey, i'm nylo. <img class="about-avatar" src="https://avatars.githubusercontent.com/u/309947781?v=4" alt="nylo profile picture">
-</h2>
-<p>i'm a developer who loves making things from scratch. i started coding in 2021, and i've been building websites, games, apps, and random ideas ever since.</p>
-<p>i work with python, javascript, and luau. i'm also heading into game development at gwinnett technical college in january 2027.</p>
-<p>i like turning ideas into something real, experimenting with new things, and figuring stuff out along the way. still learning, still building.</p>
-</div>
-</section>
-<section class="page-section" id="section-three" aria-label="my websites">
-<div class="websites-content">
-<span class="websites-eyebrow">things i've made</span>
-<h2>my websites.</h2>
-<a class="website-screenshot" href="https://cineamaze.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="view cineamaze website">
-<img src="https://image.thum.io/get/width/1400/crop/800/noanimate/https://cineamaze.vercel.app/" alt="cineamaze movie website homepage screenshot" loading="lazy">
-<span class="website-hover-label">view this website <svg viewBox="0 0 24 24" aria-hidden="true">
-<path d="M7 17 17 7M8 7h9v9"/>
-</svg>
-</span>
-</a>
-</div>
-</section>
-<section class="page-section" id="section-four" aria-label="education">
-<div class="education-content">
-<span class="education-eyebrow">education</span>
-<h2>where i'm learning.</h2>
-<div class="education-entry">
-<span class="education-date">january 2027 — graduation date tbd</span>
-<h3>gwinnett technical college</h3>
-<p>game development · diploma</p>
-<span class="education-status">starting soon</span>
-</div>
-</div>
-</section>
-<section class="page-section" id="section-five" aria-label="my games">
-<div class="games-content">
-<span class="games-eyebrow">things i've built</span>
-<h2>my roblox games.</h2>
-<div class="games-grid" id="games-grid" aria-live="polite">
-<p class="games-message">loading games...</p>
-</div>
-</div>
-</section>
-<section class="page-section" id="section-six" aria-label="my experience">
-<div class="experience-content">
-<span class="experience-eyebrow">what i've worked on</span>
-<h2>my experience.</h2>
-<div class="experience-list">
-<div class="experience-item">
-<span class="experience-icon">
-<svg viewBox="0 0 24 24">
-<path d="m8 5-7 7 7 7M16 5l7 7-7 7M14 3l-4 18"/>
-</svg>
-</span>
-<div>
-<h3>software development</h3>
-<p>python · javascript · typescript · luau</p>
-</div>
-</div>
-<div class="experience-item">
-<span class="experience-icon">
-<svg viewBox="0 0 24 24">
-<path d="M7 8h10a4 4 0 0 1 3.9 3.1l1 5a2.5 2.5 0 0 1-4 2.4l-2.2-1.9H8.3l-2.2 1.9a2.5 2.5 0 0 1-4-2.4l1-5A4 4 0 0 1 7 8Z"/>
-<path d="M7.5 11v5M5 13.5h5M16.5 12.5h.01M19 14.5h.01"/>
-</svg>
-</span>
-<div>
-<h3>game development</h3>
-<p>roblox studio · gameplay systems · plugins</p>
-</div>
-</div>
-<div class="experience-item">
-<span class="experience-icon">
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="9"/>
-<path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9s-1.4 6.5-4.1 9M12 3C9.3 5.5 7.9 8.5 7.9 12s1.4 6.5 4.1 9"/>
-</svg>
-</span>
-<div>
-<h3>web development</h3>
-<p>websites · interfaces · deployment</p>
-</div>
-</div>
-<div class="experience-item">
-<span class="experience-icon">
-<svg viewBox="0 0 24 24">
-<rect x="4" y="8" width="16" height="13" rx="2"/>
-<path d="M9 8V5a3 3 0 0 1 6 0v3M4 13h16"/>
-</svg>
-</span>
-<div>
-<h3>independent creator</h3>
-<p>digital products · developer tools</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<nav class="section-dots" id="section-dots" aria-label="page sections">
-<button type="button" class="section-dot active" data-section="0" aria-label="section 1" aria-current="true">
-</button>
-<button type="button" class="section-dot" data-section="1" aria-label="section 2">
-</button>
-<button type="button" class="section-dot" data-section="2" aria-label="section 3">
-</button>
-<button type="button" class="section-dot" data-section="3" aria-label="section 4">
-</button>
-<button type="button" class="section-dot" data-section="4" aria-label="section 5">
-</button>
-<button type="button" class="section-dot" data-section="5" aria-label="section 6">
-</button>
-</nav>
-<section class="player" id="player" aria-label="music player">
-<button class="player-toggle" id="player-toggle" type="button" aria-label="hide music player" aria-expanded="true">
-<svg viewBox="0 0 24 24">
-<path d="m5.5 14 6.5-6.5 6.5 6.5"/>
-</svg>
-</button>
-<div class="player-shell">
-<div class="player-top">
-<img class="cover" src="https://i.ytimg.com/vi/IYiY5oVmrzo/hqdefault.jpg" alt="song artwork">
-<div class="song">
-<div class="song-title" id="song-title">loading song...</div>
-<div class="song-sub">youtube</div>
-</div>
-<button class="play" id="play" type="button" aria-label="pause music">
-<svg id="play-icon" viewBox="0 0 24 24">
-<rect x="6.5" y="5" width="3.5" height="14" rx="1.75"/>
-<rect x="14" y="5" width="3.5" height="14" rx="1.75"/>
-</svg>
-</button>
-</div>
-<div class="timeline">
-<span class="time" id="elapsed">0:00</span>
-<input class="seek" id="seek" type="range" min="0" max="100" value="0" aria-label="song timeline">
-<span class="time" id="duration">0:00</span>
-</div>
-</div>
-</section>
-<div class="cursor-dot" id="cursor" aria-hidden="true">
-</div>
-<div id="yt-host" aria-hidden="true">
-</div>
-<script src="js/boot.js">
-</script>
-<script src="js/main.js">
-</script>
-<script src="js/games.js">
-</script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000">
+    <title>
+      nylo
+    </title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+      <filter id="liquid-refract" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018 0.055" numOctaves="2" seed="7" result="noise">
+        <animate attributeName="baseFrequency" values="0.018 0.055;0.023 0.043;0.018 0.055" dur="12s" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="24" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </svg>
+    <nav class="top-nav" id="top-nav" aria-label="main navigation">
+      <button type="button" class="active" id="nav-home" aria-label="home" title="home">
+        <svg viewBox="0 0 24 24">
+          <path d="m3.5 10 8.5-7 8.5 7v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>
+          <path d="M9 21v-8h6v8"/>
+        </svg>
+      </button>
+      <button type="button" id="nav-about" aria-label="about" title="about">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M5 20v-1.5a7 7 0 0 1 14 0V20"/>
+        </svg>
+      </button>
+      <button type="button" id="nav-websites" aria-label="my websites" title="my websites">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9s-1.4 6.5-4.1 9M12 3C9.3 5.5 7.9 8.5 7.9 12s1.4 6.5 4.1 9"/>
+        </svg>
+      </button>
+      <button type="button" id="nav-education" aria-label="education" title="education">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m2 9 10-5 10 5-10 5-10-5Z"/>
+          <path d="M6 11v6c3.7 2.7 8.3 2.7 12 0v-6M22 9v7"/>
+        </svg>
+      </button>
+      <button type="button" id="nav-games" aria-label="games" title="games">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 8h10a4 4 0 0 1 3.9 3.1l1 5a2.5 2.5 0 0 1-4 2.4l-2.2-1.9H8.3l-2.2 1.9a2.5 2.5 0 0 1-4-2.4l1-5A4 4 0 0 1 7 8Z"/>
+          <path d="M7.5 11v5M5 13.5h5M16.5 12.5h.01M19 14.5h.01"/>
+        </svg>
+      </button>
+      <button type="button" id="nav-experience" aria-label="experience" title="experience">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="7" width="18" height="14" rx="2"/>
+          <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13c5 3 13 3 18 0M12 13v3"/>
+        </svg>
+      </button>
+    </nav>
+    <div class="external-links" id="external-links" aria-label="external links">
+      <a href="mailto:codi.isme@gmail.com" aria-label="email" title="email me">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <path d="m3 7 9 7 9-7"/>
+        </svg>
+      </a>
+      <a href="https://github.com/ItsMeCodyy" target="_blank" rel="noopener noreferrer" aria-label="github" title="github">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none">
+          <path d="M12 .8a11.2 11.2 0 0 0-3.54 21.82c.56.11.77-.24.77-.54v-2.1c-3.13.68-3.79-1.32-3.79-1.32-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .17 2.63.75 3.24-.55.1-.72.39-1.22.7-1.5-2.5-.28-5.13-1.25-5.13-5.55 0-1.22.44-2.22 1.16-3-.12-.29-.5-1.42.11-2.96 0 0 .95-.3 3.08 1.14A10.73 10.73 0 0 1 12 6.1c.95 0 1.91.13 2.8.38 2.14-1.44 3.09-1.14 3.09-1.14.61 1.54.23 2.67.11 2.96.73.78 1.16 1.78 1.16 3 0 4.31-2.63 5.26-5.14 5.54.4.35.75 1.05.75 2.12v3.12c0 .3.2.66.78.54A11.2 11.2 0 0 0 12 .8Z"/>
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/in/nylo-refined-73352243b/" target="_blank" rel="noopener noreferrer" aria-label="linkedin" title="linkedin">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none">
+          <path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.94 18.75H4.97V9.2h2.97v9.55ZM6.46 7.9a1.72 1.72 0 1 1 0-3.44 1.72 1.72 0 0 1 0 3.44Zm12.29 10.85h-2.97V14.1c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.47V9.2h2.85v1.3h.04c.4-.75 1.37-1.54 2.82-1.54 3.02 0 3.57 1.98 3.57 4.56v5.23Z"/>
+        </svg>
+      </a>
+    </div>
+    <main id="section-home">
+      <button class="enter" id="enter" type="button">
+        click to enter
+      </button>
+      <h1 class="name" id="name" aria-label="nylo refined">
+      </h1>
+      <p class="role-subtitle" id="role-subtitle">
+        software engineer · game developer · creative developer
+      </p>
+    </main>
+    <section class="page-section" id="section-two" aria-label="about me">
+      <div class="about-content">
+        <span class="about-eyebrow">
+          a little about me
+        </span>
+        <h2 class="about-heading">
+          hey, i'm nylo.
+          <img class="about-avatar" src="https://avatars.githubusercontent.com/u/309947781?v=4" alt="nylo profile picture">
+        </h2>
+        <p>
+          i'm a developer who loves making things from scratch. i started coding in 2021, and i've been building websites, games, apps, and random ideas ever since.
+        </p>
+        <p>
+          i work with python, javascript, and luau. i'm also heading into game development at gwinnett technical college in january 2027.
+        </p>
+        <p>
+          i like turning ideas into something real, experimenting with new things, and figuring stuff out along the way. still learning, still building.
+        </p>
+      </div>
+    </section>
+    <section class="page-section" id="section-three" aria-label="my websites">
+      <div class="websites-content">
+        <span class="websites-eyebrow">
+          things i've made
+        </span>
+        <h2>
+          my websites.
+        </h2>
+        <a class="website-screenshot" href="https://cineamaze.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="view cineamaze website">
+          <img src="https://image.thum.io/get/width/1400/crop/800/noanimate/https://cineamaze.vercel.app/" alt="cineamaze movie website homepage screenshot" loading="lazy">
+          <span class="website-hover-label">
+            view this website
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 17 17 7M8 7h9v9"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </section>
+    <section class="page-section" id="section-four" aria-label="education">
+      <div class="education-content">
+        <span class="education-eyebrow">
+          education
+        </span>
+        <h2>
+          where i'm learning.
+        </h2>
+        <div class="education-entry">
+          <span class="education-date">
+            january 2027 — graduation date tbd
+          </span>
+          <h3>
+            gwinnett technical college
+          </h3>
+          <p>
+            game development · diploma
+          </p>
+          <span class="education-status">
+            starting soon
+          </span>
+        </div>
+      </div>
+    </section>
+    <section class="page-section" id="section-five" aria-label="my games">
+      <div class="games-content">
+        <span class="games-eyebrow">
+          things i've built
+        </span>
+        <h2>
+          my roblox games.
+        </h2>
+        <div class="games-grid" id="games-grid" aria-live="polite">
+          <p class="games-message">
+            loading games...
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="page-section" id="section-six" aria-label="my experience">
+      <div class="experience-content">
+        <span class="experience-eyebrow">
+          what i've worked on
+        </span>
+        <h2>
+          my experience.
+        </h2>
+        <div class="experience-list">
+          <div class="experience-item">
+            <span class="experience-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="m8 5-7 7 7 7M16 5l7 7-7 7M14 3l-4 18"/>
+              </svg>
+            </span>
+            <div>
+              <h3>
+                software development
+              </h3>
+              <p>
+                python · javascript · typescript · luau
+              </p>
+            </div>
+          </div>
+          <div class="experience-item">
+            <span class="experience-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 8h10a4 4 0 0 1 3.9 3.1l1 5a2.5 2.5 0 0 1-4 2.4l-2.2-1.9H8.3l-2.2 1.9a2.5 2.5 0 0 1-4-2.4l1-5A4 4 0 0 1 7 8Z"/>
+                <path d="M7.5 11v5M5 13.5h5M16.5 12.5h.01M19 14.5h.01"/>
+              </svg>
+            </span>
+            <div>
+              <h3>
+                game development
+              </h3>
+              <p>
+                roblox studio · gameplay systems · plugins
+              </p>
+            </div>
+          </div>
+          <div class="experience-item">
+            <span class="experience-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9s-1.4 6.5-4.1 9M12 3C9.3 5.5 7.9 8.5 7.9 12s1.4 6.5 4.1 9"/>
+              </svg>
+            </span>
+            <div>
+              <h3>
+                web development
+              </h3>
+              <p>
+                websites · interfaces · deployment
+              </p>
+            </div>
+          </div>
+          <div class="experience-item">
+            <span class="experience-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="4" y="8" width="16" height="13" rx="2"/>
+                <path d="M9 8V5a3 3 0 0 1 6 0v3M4 13h16"/>
+              </svg>
+            </span>
+            <div>
+              <h3>
+                independent creator
+              </h3>
+              <p>
+                digital products · developer tools
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <nav class="section-dots" id="section-dots" aria-label="page sections">
+      <button type="button" class="section-dot active" data-section="0" aria-label="section 1" aria-current="true">
+      </button>
+      <button type="button" class="section-dot" data-section="1" aria-label="section 2">
+      </button>
+      <button type="button" class="section-dot" data-section="2" aria-label="section 3">
+      </button>
+      <button type="button" class="section-dot" data-section="3" aria-label="section 4">
+      </button>
+      <button type="button" class="section-dot" data-section="4" aria-label="section 5">
+      </button>
+      <button type="button" class="section-dot" data-section="5" aria-label="section 6">
+      </button>
+    </nav>
+    <section class="player" id="player" aria-label="music player">
+      <button class="player-toggle" id="player-toggle" type="button" aria-label="hide music player" aria-expanded="true">
+        <svg viewBox="0 0 24 24">
+          <path d="m5.5 14 6.5-6.5 6.5 6.5"/>
+        </svg>
+      </button>
+      <div class="player-shell">
+        <div class="player-top">
+          <img class="cover" src="https://i.ytimg.com/vi/IYiY5oVmrzo/hqdefault.jpg" alt="song artwork">
+          <div class="song">
+            <div class="song-title" id="song-title">
+              loading song...
+            </div>
+            <div class="song-sub">
+              youtube
+            </div>
+          </div>
+          <button class="play" id="play" type="button" aria-label="pause music">
+            <svg id="play-icon" viewBox="0 0 24 24">
+              <rect x="6.5" y="5" width="3.5" height="14" rx="1.75"/>
+              <rect x="14" y="5" width="3.5" height="14" rx="1.75"/>
+            </svg>
+          </button>
+        </div>
+        <div class="timeline">
+          <span class="time" id="elapsed">
+            0:00
+          </span>
+          <input class="seek" id="seek" type="range" min="0" max="100" value="0" aria-label="song timeline">
+          <span class="time" id="duration">
+            0:00
+          </span>
+        </div>
+      </div>
+    </section>
+    <div class="cursor-dot" id="cursor" aria-hidden="true">
+    </div>
+    <div id="yt-host" aria-hidden="true">
+    </div>
+    <script src="js/boot.js">
+    </script>
+    <script src="js/main.js">
+    </script>
+    <script src="js/games.js">
+    </script>
+  </body>
 </html>
