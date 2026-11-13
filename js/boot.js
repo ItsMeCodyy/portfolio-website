@@ -1,0 +1,1 @@
+if('scrollRestoration' in history)history.scrollRestoration='manual';window.scrollTo(0,0);window.addEventListener('pageshow',()=>{if(!document.body.classList.contains('entered'))window.scrollTo({top:0,left:0,behavior:'instant'})});
