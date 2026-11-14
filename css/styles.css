@@ -1475,3 +1475,40 @@ body:not(.entered) .external-links {
 .websites-content h2 {
   margin-bottom: 24px;
 }
+
+/* two-column websites gallery */
+.websites-content {
+  width: min(1060px, calc(100% - 100px));
+  overflow: visible;
+  max-height: none;
+}
+
+.websites-content .website-screenshot {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(50% - 10px);
+  margin: 0;
+}
+
+.websites-content .website-screenshot + .website-screenshot {
+  margin: 0 0 0 16px;
+}
+
+.websites-content h2 {
+  margin-bottom: 30px;
+}
+
+@media (max-width: 620px) {
+  .websites-content {
+    width: calc(100% - 50px);
+  }
+
+  .websites-content .website-screenshot {
+    width: calc(50% - 6px);
+    border-radius: 10px;
+  }
+
+  .websites-content .website-screenshot + .website-screenshot {
+    margin-left: 8px;
+  }
+}
