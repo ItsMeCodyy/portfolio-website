@@ -1458,3 +1458,20 @@ body:not(.entered) .external-links {
     transition: none;
   }
 }
+
+/* website gallery */
+.websites-content {
+  max-height: calc(100dvh - 165px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #444 transparent;
+  padding: 3px;
+}
+
+.websites-content .website-screenshot + .website-screenshot {
+  margin-top: 16px;
+}
+
+.websites-content h2 {
+  margin-bottom: 24px;
+}
